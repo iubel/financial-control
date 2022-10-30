@@ -20,15 +20,21 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
     const [category, setCategory] = useState('');
     const [type, setType] = useState('deposit');
 
-    function handelCreateNewTransaction(event: FormEvent) {
+    async function handelCreateNewTransaction(event: FormEvent) {
         event.preventDefault();
 
-        createTransaction({
+        await createTransaction({
             title,
             amount,
             category,
             type,
         })
+
+        setTitle('');
+        setAmount(0);
+        setType('deposit');
+        setCategory('');
+        onRequestClose();
     }
 
     return (
@@ -75,8 +81,8 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
 
                     <RadioBox
                         type='button'
-                        onClick={() => setType('whitdraw')}
-                        isActive={type === 'whitdraw'}
+                        onClick={() => setType('withdraw')}
+                        isActive={type === 'withdraw'}
                         activeColor='red'
                     >
                         <img src={outcomeImg} alt='Outcome' />
